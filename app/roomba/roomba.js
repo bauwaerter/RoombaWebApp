@@ -23,18 +23,21 @@ angular.module('myApp.roomba', [])
             ]
         };
 
-        var initializeSteps = function(){
-            $scope.steps = [{
-                currentLocation: {
-                    x: $scope.roomba.initCoords.x,
-                    y: $scope.roomba.initCoords.y
-                },
-                action: "",
-                dirtCollected: 0
-            }];
+        $scope.roombStats = {
+            distanceTraveled: 0,
+            totalDirt: $scope.room.dirtLocations.length,
+            dirtCollected: 0
         };
 
-        initializeSteps();
+        $scope.steps = [{
+            currentLocation: {
+                x: $scope.roomba.initCoords.x,
+                y: $scope.roomba.initCoords.y
+            },
+            action: "",
+            dirtCollected: 0
+        }];
+
 
         var wallDetection = function(currentLocation){
 
@@ -74,6 +77,13 @@ angular.module('myApp.roomba', [])
             $scope.steps.push(currentStep);
         };
 
+        $scope.playAll = function(){
+            var instructions = $scope.roomba.drivingInstructions.length;
+           for(var i = 0; i < instructions; i++){
+               $scope.nextStep();
+           }
+        };
+
         $scope.nextStep = function(){
             var drivingInstruction = $scope.roomba.drivingInstructions.shift();
 
@@ -89,6 +99,9 @@ angular.module('myApp.roomba', [])
                     break;
                 case 'E':
                     moveRoomba(1, 0, 'E');
+                    break;
+                default:
+                    moveRoomba(0, 0, '');
                     break;
             }
         };

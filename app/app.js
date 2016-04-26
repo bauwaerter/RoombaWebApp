@@ -7,7 +7,8 @@ angular.module('myApp', [
     'ui.materialize',
     'myApp.home',
     'myApp.roomba',
-    'grid_directive',
+    'directives',
+    'services',
     'myApp.version'
 ]).
 config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $stateProvider) {

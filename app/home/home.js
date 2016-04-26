@@ -2,7 +2,7 @@
 
 angular.module('myApp.home', [])
 
-.controller('HomeCtrl', ['$scope', '$state', function($scope, $state) {
+.controller('HomeCtrl', ['$scope', '$state', 'MachineService', function($scope, $state, MachineService) {
 
         $scope.roomba = {
             initCoords: { x: null, y: null },
@@ -14,24 +14,29 @@ angular.module('myApp.home', [])
             dirtLocations: [{ x: null, y: null }]
         };
 
-        $scope.addDirtLocation = function(){
-            $scope.room.dirtLocations.push({ x: null, y: null });
-        };
-        $scope.deleteDirtLocation = function(index){
-            $scope.room.dirtLocations.splice(index, 1);
+        $scope.machineService = new MachineService();
+
+        $scope.readFile = function($fileContent){
+            $scope.machineService.initWithFile($fileContent);
         };
 
-        $scope.addDirection = function(){
-            $scope.roomba.drivingInstructions.push("");
+        $scope.addDirtLocation = function(){
+            $scope.machineService.addDirtLocation();
+        };
+        $scope.deleteDirtLocation = function(index){
+            $scope.machineService.deleteDirtLocation(index);
+        };
+
+        $scope.addDrivingInstruction = function(){
+            $scope.machineService.addDrivingInstruction();
         };
 
         $scope.deleteDrivingInstruction = function(index){
-            $scope.roomba.drivingInstructions.splice(index, 1);
+            $scope.machineService.deleteDrivingInstruction(index);
         };
 
         $scope.goRoombaGo = function(){
             $state.go('app.roomba', { dataObj: { room: $scope.room, roomba: $scope.roomba }});
-
         };
 
 }]);

@@ -6,10 +6,10 @@
                 <div class="file-field input-field">
                     <div class="btn">
                         <span>File</span>
-                        <input type="file">
+                        <input type="file" read-file="readFile($fileContent)"/>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
+                        <input class="file-path validate" type="text"/>
                     </div>
                 </div>
             </form>
@@ -23,11 +23,11 @@
             <h5>Room Dimensions</h5>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="room_height" ng-model="room.coordinates.y" type="number" min="0" class="validate">
+                    <input id="room_height" ng-model="machineService.roomDimensions.y" type="number" min="0" class="validate">
                     <label for="room_height">Height</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="room_width" ng-model="room.coordinates.x" type="number" min="0" class="validate">
+                    <input id="room_width" ng-model="machineService.roomDimensions.x" type="number" min="0" class="validate">
                     <label for="room_width">Width</label>
                 </div>
             </div>
@@ -36,11 +36,11 @@
             <h5>Roomba Starting Coordinates</h5>
             <div class="row">
                 <div class="input-field col s6">
-                    <input id="roomba_start_x" ng-model="roomba.initCoords.x" type="number" min="0" class="validate">
+                    <input id="roomba_start_x" ng-model="machineService.initPosition.x" type="number" min="0" class="validate">
                     <label for="roomba_start_x">X-Coordinate</label>
                 </div>
                 <div class="input-field col s6">
-                    <input id="roomba_start_y" ng-model="roomba.initCoords.y" type="number" min="0" class="validate">
+                    <input id="roomba_start_y" ng-model="machineService.initPosition.y" type="number" min="0" class="validate">
                     <label for="roomba_start_y">Y-Coordinate</label>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="dirtLocation in room.dirtLocations track by $index">
+                <tr ng-repeat="dirtLocation in machineService.dirtLocations track by $index">
                     <td>
                         <input ng-model="dirtLocation.x" type="number" min="0" class="validate">
                     </td>
@@ -77,12 +77,12 @@
         </div>
         <div class="col m6 s12">
             <h5>Roomba Driving Instructions</h5>
-            <button class="btn" ng-click="addDirection()">Add Direction</button>
+            <button class="btn" ng-click="addDrivingInstruction()">Add Direction</button>
             <table>
                 <tbody>
-                    <tr ng-repeat="instruction in roomba.drivingInstructions track by $index">
+                    <tr ng-repeat="instruction in machineService.drivingInstructions track by $index">
                         <td>
-                            <select ng-model="roomba.drivingInstructions[$index]" material-select watch>
+                            <select ng-model="machineService.drivingInstructions[$index]" material-select watch>
                                 <option value="">Please select a direction</option>
                                 <option value="N">N</option>
                                 <option value="S">S</option>

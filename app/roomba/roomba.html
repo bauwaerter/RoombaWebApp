@@ -1,34 +1,47 @@
 <div ng-controller="RoombaCtrl">
-    <div class="row">
+    <div ng-show="machineService.complete" class="row">
         <div class="col m6 offset-m3 s12">
-            <h5>Roomba Stats</h5>
-            <p>Distance Traveled: {{roombStats.distanceTraveled}}</p>
-            <p>Dirt Collected: {{step.dirtCollected}}</p>
-            <p>Total Dirt: {{roombStats.totalDirt}}</p>
+            <div class="center">
+                <h5>Roomba Stats</h5>
+
+                <p>Final Position: x: {{ machineService.steps[machineService.steps.length - 1].currentLocation.x }}, y: {{ machineService.steps[machineService.steps.length - 1].currentLocation.y }}</p>
+                <p>Dirt Collected: {{ machineService.steps[machineService.steps.length - 1].dirtCollected }}</p>
+                <p>Total Dirt Locations: {{ machineService.steps[machineService.steps.length - 1].dirtCollected + machineService.dirtLocations.length }}</p>
+                <p>Distance Traveled: {{ machineService.steps.length - machineService.wallsHit }} units</p>
+                <p>Total Walls Hit: {{ machineService.wallsHit }}</p>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col m6 offset-m3 s12">
-            <button ng-click="nextStep()" class="btn">Next Step</button>
-            <button ng-click="playAll()" class="btn">Play!</button>
+            <div class="center">
+                <button ng-click="nextStep()" style="margin-right: 10px;" class="btn">
+                    <span>{{machineService.drivingInstructions.length}}</span>
+                    Next Step
+                </button>
+                <button ng-click="playAll()" style="margin-left: 10px;" class="btn">Play!</button>
+            </div>
             <table>
                 <thead>
                     <tr>
+                        <th>Steps</th>
                         <th>Current Location</th>
                         <th>Action</th>
-                        <th>Dirt Collected</th>
+                        <th>Total Dirt Collected</th>
+                        <th>Wall Hit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="step in steps">
+                    <tr ng-repeat="step in machineService.steps track by $index">
+                        <td>{{$index + 1}}</td>
                         <td>x: {{step.currentLocation.x}}, y: {{step.currentLocation.y}}</td>
                         <td>{{step.action}}</td>
                         <td>{{step.dirtCollected}}</td>
+                        <td>{{step.wallHit}}</td>
                     </tr>
                 </tbody>
             </table>
-            <!--<canvas height="{{room.coordinates.y}}" width="{{room.coordinates.x}}" id="canvas"></canvas>-->
-            <!--<canvas height="{{room.coordinates.y}}" width="400" id="canvas" grid></canvas>-->
+            <!--<canvas height="{{room.coordinates.y}}" width="{{room.coordinates.x}}" id="canvas" grid></canvas>-->
         </div>
     </div>
 </div>

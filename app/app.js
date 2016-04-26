@@ -27,7 +27,7 @@ config(['$urlRouterProvider', '$stateProvider', function($urlRouterProvider, $st
                 url: "/roomba",
                 templateUrl: "roomba/roomba.html",
                 params: {
-                    dataObj: null
+                    machineService: null
                 }
             });
 
